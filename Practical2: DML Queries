@@ -1,11 +1,6 @@
-Practical No. 2 — SQL DML Queries: Student Result Management System
-________________________________________
-1. Create Database
 CREATE DATABASE StudentResultDB;
 USE StudentResultDB;
-________________________________________
-2. Create Tables
-(a) Student Table
+
 CREATE TABLE Student (
     StudentID INT PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
@@ -13,7 +8,7 @@ CREATE TABLE Student (
     Year INT,
     Email VARCHAR(50)
 );
-(b) Marks Table
+
 CREATE TABLE Marks (
     MarkID INT PRIMARY KEY,
     StudentID INT,
@@ -21,7 +16,7 @@ CREATE TABLE Marks (
     MarksObtained INT CHECK (MarksObtained BETWEEN 0 AND 100),
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
-(c) Result Table
+
 CREATE TABLE Result (
     ResultID INT PRIMARY KEY,
     StudentID INT,
@@ -30,8 +25,8 @@ CREATE TABLE Result (
     Grade CHAR(2),
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
-________________________________________
-3. Insert Sample Data
+
+
 INSERT INTO Student VALUES
 (1, 'Amit Sharma', 'Computer', 3, 'amit@gmail.com'),
 (2, 'Sneha Patil', 'IT', 2, 'sneha@gmail.com'),
