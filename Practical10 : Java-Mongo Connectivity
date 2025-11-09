@@ -1,0 +1,36 @@
+import com.mongodb.*;
+
+public class MakeConnect {
+    public static void main(String[] args) {
+        try {
+            MongoClient mongo = new MongoClient("localhost", 27017);
+            DB db = mongo.getDB("Students");
+            DBCollection col = db.getCollection("StudentData");
+
+            BasicDBObject doc = new BasicDBObject("name", "Kunal").append("roll", 799);
+            col.insert(doc);
+            System.out.println("Inserted: " + doc);
+
+            DBCursor cur = col.find();
+            while (cur.hasNext()) System.out.println(cur.next());
+
+            BasicDBObject q = new BasicDBObject("name", "Kunal");
+            BasicDBObject d = new BasicDBObject("$set", new BasicDBObject("roll",990 ));
+            col.update(q, d);
+            System.out.println("Record Updated");
+
+            cur = col.find();
+            while (cur.hasNext()) System.out.println(cur.next());
+
+            col.remove(new BasicDBObject("name", "Kunal"));
+            System.out.println("Record Deleted");
+
+            mongo.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// javac -cp ".;mongo-java-driver-3.12.14.jar" MakeConnect.java
+// java -cp ".;mongo-java-driver-3.12.14.jar" MakeConnect
